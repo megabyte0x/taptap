@@ -1,1 +1,4 @@
 node_modules
+apps/*/node_modules
+apps/*/*.env
+apps/*/dist
