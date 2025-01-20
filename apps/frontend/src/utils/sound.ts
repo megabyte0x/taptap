@@ -4,7 +4,9 @@ class SoundManager {
     private isMuted: boolean = false;
 
     private constructor() {
-        this.coinSound = new Audio('/coin-sound.mp3');
+        // Use relative path for static exports
+        const basePath = import.meta.env.BASE_URL || './';
+        this.coinSound = new Audio(`${basePath}coin-sound.mp3`);
         this.coinSound.volume = 0.3; // Adjust volume (0.0 to 1.0)
     }
 
