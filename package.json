@@ -6,12 +6,12 @@
     "counter:test": "cd ./ao/counter && ./scripts/test.sh",
     "counter:build": "cd ./ao/counter && ./scripts/build.sh",
     "counter:inject": "STATE_FILE=./ao/counter/state-processes.yaml node ./utils/inject-process.js",
-    "frontend:dev": "cd ./apps/frontend && npm run dev",
-    "frontend:build": "cd ./apps/frontend && npm run build",
-    "frontend:deploy": "cd ./apps/frontend && npm run deploy",
-    "frontend:preview": "cd ./apps/frontend && npm run preview",
+    "frontend:dev": "cd ./apps/frontend && bun run dev",
+    "frontend:build": "cd ./apps/frontend && bun run build",
+    "frontend:deploy": "cd ./apps/frontend && bun run deploy",
+    "frontend:preview": "cd ./apps/frontend && bun run preview",
     "postinstall": "chmod +x ./ao/counter/scripts/* && chmod +x ./apps/frontend/scripts/*",
-    "build": "npm run frontend:build"
+    "build": "bun run frontend:build"
   },
   "devDependencies": {
     "@types/bun": "latest",
