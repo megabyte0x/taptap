@@ -51,7 +51,7 @@ export const TAGS = {
         smartweaveAppVersion: 'App-Version',
         target: 'Target',
         thumbnail: 'Thumbnail',
-        topic: (topic) => `topic:${topic}`,
+        topic: (topic: string) => `topic:${topic}`,
         udl: {
             accessFee: 'Access-Fee',
             commercialUse: 'Commercial-Use',
@@ -73,11 +73,11 @@ export const TAGS = {
             '1': 'Account-0.3',
         },
         ticker: 'ATOMIC ASSET',
-        title: (title) => `${title}`,
+        title: (title: string) => `${title}`,
     },
 };
 
-export function aaStandard(walletAddress) {
+export function aaStandard(walletAddress: string) {
     console.log("Wallet Address in aaStandard: ", walletAddress)
 
     let aa = `local bint = require('.bint')(256)
@@ -340,7 +340,7 @@ end)
 }
 
 
-export function assetTags(walletAddress) {
+export function assetTags(walletAddress: string) {
     let date = new Date().getTime().toString();
 
     let assetTags = [

@@ -237,9 +237,23 @@ export async function aaSteps(walletAddress: string, score: number): Promise<Sta
         status.message = 'Process completed successfully';
         return status;
 
-    } catch (error) {
-        console.error("Error in aaSteps: ", error.message);
-        status.message = `Error: ${error.message}`;
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error("Error in aaSteps: ", error.message);
+            status.message = `Error: ${error.message}`;
+        } else {
+            console.error("Unknown error in aaSteps");
+            status.message = "Unknown error occurred";
+        }
         return status;
     }
 }
+
+// Fix the null assignments
+const queryArgs: QueryArgs = {
+    tagFilters: undefined,
+    owners: undefined,
+    cursor: undefined,
+    reduxCursor: undefined,
+    cursorObjectKey: undefined
+};

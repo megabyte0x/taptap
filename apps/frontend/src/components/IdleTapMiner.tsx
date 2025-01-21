@@ -53,7 +53,11 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
     const handleMint = (e: React.MouseEvent) => {
         e.stopPropagation();
         onGameEnd();
-        aaSteps(walletAddress, score);  // Execute aaSteps when Mint button is clicked
+        if (walletAddress) {
+            aaSteps(walletAddress, score);
+        } else {
+            console.error("Wallet address not found");
+        }
     };
 
     return (
