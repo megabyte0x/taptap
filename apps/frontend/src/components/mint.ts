@@ -150,19 +150,15 @@ async function runGQLQuery(processId: string): Promise<GQLResponse> {
 
 export async function aaSteps(walletAddress: string, score: number): Promise<Status> {
     console.log("Start");
-    console.log("Score: ", score);
     const signer = createDataItemSigner(globalThis.arweaveWallet);
     let status = { success: false, processId: null, message: '' };
 
     try {
         // Step 1: Spawn the process
-        console.log("Original HTML:", indexHtml);
-        console.log("Score to insert:", score);
         const modifiedHtml = indexHtml.replace(
             /\{\{SCORE\}\}/g,  // Added escaping for curly braces
             String(score)
         );
-        console.log("Modified HTML:", modifiedHtml);
 
         const processId = await spawn({
             module: "bkjb55i07GUCUSWROtKK4HU1mBS_X0TyH3M5jMV6aPg",
@@ -172,7 +168,7 @@ export async function aaSteps(walletAddress: string, score: number): Promise<Sta
             tags: assetTags(walletAddress),
         });
 
-        console.log("Process spawned: ", processId);
+        console.log("AA spawned: ", processId);
         status.processId = processId;
         status.message = 'Process spawned successfully';
 

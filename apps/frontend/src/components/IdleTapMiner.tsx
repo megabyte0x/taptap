@@ -18,6 +18,8 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
     const [isPlaying, setIsPlaying] = useState(false)
     const [score, setScore] = useState(0)
     const [timeLeft, setTimeLeft] = useState(10)
+    const [isCreatingMemory, setIsCreatingMemory] = useState(false)
+    const [createdProcessId, setCreatedProcessId] = useState<string | null>(null)
 
     const [coinEffects, setCoinEffects] = useState<{ x: number; y: number }[]>([])
     const soundManager = SoundManager.getInstance()
@@ -50,13 +52,30 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
         }
     }
 
-    const handleMint = (e: React.MouseEvent) => {
+    const handleMint = async (e: React.MouseEvent) => {
         e.stopPropagation();
-        onGameEnd();
+        setIsCreatingMemory(true);
         if (walletAddress) {
-            aaSteps(walletAddress, score);
+            try {
+                const result = await aaSteps(walletAddress, score);
+                if (result.success && result.processId) {
+                    setCreatedProcessId(result.processId);
+                }
+            } catch (error) {
+                console.error("Error creating memory:", error);
+            } finally {
+                setIsCreatingMemory(false);
+                onGameEnd();
+            }
         } else {
             console.error("Wallet address not found");
+            setIsCreatingMemory(false);
+        }
+    };
+
+    const handleViewMemory = () => {
+        if (createdProcessId) {
+            window.open(`https://bazar.arweave.net/#/asset/${createdProcessId}`, '_blank');
         }
     };
 
@@ -122,16 +141,30 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
                             Play Again
                         </motion.button>
 
-                        <motion.button
-                            className="start-button"
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={handleMint}
-                        >
-                            Mint $TAP
-                        </motion.button>
+                        {!createdProcessId ? (
+                            <motion.button
+                                className="start-button"
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={handleMint}
+                                disabled={isCreatingMemory}
+                            >
+                                {isCreatingMemory ? "Creating Memory..." : "Create a Memory!"}
+                            </motion.button>
+                        ) : (
+                            <motion.button
+                                className="start-button view-memory"
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={handleViewMemory}
+                            >
+                                View Memory
+                            </motion.button>
+                        )}
                     </div>
                 </motion.div>
             )}
