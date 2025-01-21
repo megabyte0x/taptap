@@ -358,4 +358,18 @@
     transform: scale(1.2);
   }
   
+  .button-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  @media (max-width: 640px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+  }
+  
   

@@ -4,6 +4,7 @@ import type { UserConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  assetsInclude: ['**/*.html'],
   plugins: [react()] as UserConfig['plugins'],
   base: './',
   build: {

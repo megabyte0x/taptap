@@ -6,16 +6,18 @@ import Score from "./Score"
 import CoinEffect from "./CoinEffect"
 import SoundManager from "../utils/sound"
 import "./IdleTapMiner.css"
+import { aaSteps } from "./mint"
+
 
 interface IdleTapMinerProps {
-    onGameEnd: () => void
+    onGameEnd: () => void;
     ConnectButtonComponent: ReactNode
 }
 
 export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: IdleTapMinerProps) {
     const [isPlaying, setIsPlaying] = useState(false)
     const [score, setScore] = useState(0)
-    const [timeLeft, setTimeLeft] = useState(60)
+    const [timeLeft, setTimeLeft] = useState(10)
 
     const [coinEffects, setCoinEffects] = useState<{ x: number; y: number }[]>([])
     const soundManager = SoundManager.getInstance()
@@ -48,10 +50,16 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
         }
     }
 
+    const handleMint = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onGameEnd();
+        aaSteps(walletAddress, score);  // Execute aaSteps when Mint button is clicked
+    };
+
     return (
         <div className="game-container" onClick={incrementScore}>
             <h1 className="title">$TAP Coin Miner</h1>
-            {!isPlaying && timeLeft === 60 && (
+            {!isPlaying && timeLeft === 10 && (
                 <div className="start-section">
                     {!walletAddress ? (
                         <div className="connect-button-container">
@@ -68,7 +76,7 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
                                 e.stopPropagation()
                                 setIsPlaying(true)
                                 setScore(0)
-                                setTimeLeft(60)
+                                setTimeLeft(10)
                             }}
                         >
                             Start Mining
@@ -92,21 +100,35 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
                     <div className="game-over-text">
                         Mining Complete! You mined {score} $TAP coins!
                     </div>
-                    <motion.button
-                        className="start-button"
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            setIsPlaying(false)
-                            setScore(0)
-                            setTimeLeft(60)
-                        }}
-                    >
-                        Play Again
-                    </motion.button>
+                    <div className="button-container">
+
+                        <motion.button
+                            className="start-button"
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setIsPlaying(false)
+                                setScore(0)
+                                setTimeLeft(10)
+                            }}
+                        >
+                            Play Again
+                        </motion.button>
+
+                        <motion.button
+                            className="start-button"
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={handleMint}
+                        >
+                            Mint $TAP
+                        </motion.button>
+                    </div>
                 </motion.div>
             )}
             {coinEffects.map((effect, index) => (
