@@ -284,7 +284,7 @@ export async function support() {
         signer: signer,
         tags: [
             { name: 'Action', value: 'Transfer' },
-            { name: 'Recipient', value: "FDUH0kZ9McNtpAx3gXTQcMR4dMUTJ1fZU_10JM1Yw4M" },
+            { name: 'Recipient', value: "NeViM_xeDSvAloNXLzHDp3qPD5s3XDLu5OGhdt7dW84" },
             { name: 'Quantity', value: "100000000000" }
         ],
         data: "Thanks for supporting!",

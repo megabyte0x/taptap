@@ -3,3 +3,6 @@ apps/*/node_modules
 apps/*/*.env
 apps/*/dist
 *.mp4
+MAIN_DEV.json
+ao/**/build
+

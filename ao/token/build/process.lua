@@ -35,7 +35,7 @@ if Ticker ~= 'TAP' then Ticker = 'TAP' end
 
 if Denomination ~= 18 then Denomination = 18 end
 
-if not Logo then Logo = 'SBCCXwwecBlDqRLUjb8dYABExTJXLieawf7m2aBJ-KY' end
+if not Logo then Logo = 'kPZd6glwsQIjT1x0hBIQIZPDM3YSeoZmafr9NRfo5O4' end
 
 COUNTER_PROCESS = "k5kpwc4j_G36nhvx5GyI9l9yzHhYRyF8oIZ0m3qB4vg"
 
@@ -58,8 +58,8 @@ Handlers.add('Balance', function(msg)
     local bal = '0'
 
     -- If not Target is provided, then return the Senders balance
-    if (msg.Tags.Target and Balances[msg.Tags.Target]) then
-        bal = tostring(Balances[msg.Tags.Target])
+    if (msg.Tags.Recipient and Balances[msg.Tags.Recipient]) then
+        bal = tostring(Balances[msg.Tags.Recipient])
     elseif Balances[msg.From] then
         bal = tostring(Balances[msg.From])
     end
