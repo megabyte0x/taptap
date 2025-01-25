@@ -6,7 +6,7 @@ import Score from "./Score"
 import CoinEffect from "./CoinEffect"
 import SoundManager from "../utils/sound"
 import "../styles/IdleTapMiner.css"
-import { mint } from "../mint"
+import { mintAA, mintToken } from "../mint"
 
 
 interface IdleTapMinerProps {
@@ -46,6 +46,7 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
             const x = e.clientX - rect.left
             const y = e.clientY - rect.top
             setCoinEffects((prev) => [...prev, { x, y }])
+            mintToken()
             soundManager.playTapSound()
             setTimeout(() => {
                 setCoinEffects((prev) => prev.slice(1))
@@ -59,7 +60,7 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
         setMintError(null); // Reset error message
         if (walletAddress) {
             try {
-                const result = await mint(walletAddress, score);
+                const result = await mintAA(walletAddress, score);
                 if (result.success && result.processId) {
                     setCreatedProcessId(result.processId);
                 } else {

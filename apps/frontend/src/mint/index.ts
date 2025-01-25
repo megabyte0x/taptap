@@ -3,6 +3,7 @@ import { GATEWAYS, PAGINATORS, CURSORS, assetTags, aaStandard } from "../utils";
 import { QueryArgs, GQLResponse, Status, ProfileHeaderType, MessageResult } from "../types";
 import { getProfileByWalletAddress } from "./getProfile";
 import indexHtml from '../utils/index.html?raw'
+import COUNTER from "../constants/counter_process";
 
 function getQuery(args: QueryArgs) {
     const paginator = args.paginator ? args.paginator : PAGINATORS.default;
@@ -126,7 +127,7 @@ async function runGQLQuery(processId: string): Promise<GQLResponse> {
     }
 }
 
-export async function mint(walletAddress: string, score: number): Promise<Status> {
+export async function mintAA(walletAddress: string, score: number): Promise<Status> {
     console.log("Start");
     const signer = createDataItemSigner(globalThis.arweaveWallet);
     const status: Status = { success: false, processId: null, message: '' };
@@ -260,11 +261,16 @@ export async function mint(walletAddress: string, score: number): Promise<Status
     }
 }
 
-// // Fix the null assignments
-// const queryArgs: QueryArgs = {
-//     tagFilters: undefined,
-//     owners: undefined,
-//     cursor: undefined,
-//     reduxCursor: undefined,
-//     cursorObjectKey: undefined
-// };
+export async function mintToken() {
+    const signer = createDataItemSigner(globalThis.arweaveWallet);
+
+    const processId = COUNTER;
+
+    const increaseMessage = await message({
+        process: processId,
+        signer: signer,
+        tags: [{ name: 'Action', value: 'Increase' }],
+    });
+
+    console.log("Increase Message:", increaseMessage);
+}
