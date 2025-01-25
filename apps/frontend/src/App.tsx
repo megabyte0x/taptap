@@ -2,8 +2,9 @@ import { ConnectButton } from "arweave-wallet-kit";
 import { useActiveAddress } from "arweave-wallet-kit";
 import "./App.css";
 import IdleTapMiner from "./components/IdleTapMiner.tsx";
-import Confetti from "./components/Confetti.tsx";
-import { useState } from "react";
+import { useState, Suspense, lazy } from "react";
+
+const Confetti = lazy(() => import("./components/Confetti"))
 
 function App() {
   const [gameEnded, setGameEnded] = useState(false);
@@ -16,7 +17,11 @@ function App() {
 
   return (
     <div className="container">
-      {gameEnded && <Confetti />}
+      {gameEnded && (
+        <Suspense fallback={null}>
+          <Confetti />
+        </Suspense>
+      )}
       <div className="card">
         <div className={`wallet-button ${!walletAddress ? 'hidden' : ''}`}>
           <ConnectButton profileModal={true} showBalance={true} />

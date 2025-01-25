@@ -10,6 +10,26 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: true,
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Core React chunk
+          'react-vendor': ['react', 'react-dom'],
+
+          // Split Arweave related dependencies
+          'arweave-core': ['arweave-wallet-kit'],
+          'ao-connect': ['@permaweb/aoconnect'],
+
+          // UI and animation libraries
+          'ui-vendor': ['framer-motion', 'react-confetti'],
+
+          // Data management
+          'data-vendor': ['@tanstack/react-query']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
   }
 })
