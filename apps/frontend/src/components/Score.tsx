@@ -1,6 +1,6 @@
 import { motion, useAnimation } from "framer-motion"
 import { useEffect } from "react"
-import "./Score.css"
+import "../styles/Score.css"
 
 interface ScoreProps {
   score: number

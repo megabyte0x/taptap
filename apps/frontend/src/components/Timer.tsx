@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import "./Timer.css"
+import "../styles/Timer.css"
 
 interface TimerProps {
   timeLeft: number

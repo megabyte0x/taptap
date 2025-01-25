@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import "./CoinEffect.css"
+import "../styles/CoinEffect.css"
 
 interface CoinEffectProps {
   x: number
