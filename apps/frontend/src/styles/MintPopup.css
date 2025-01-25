@@ -1,0 +1,71 @@
+.mint-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.mint-popup {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    position: relative;
+    min-width: 300px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 5px 10px;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+.mint-popup h2 {
+    text-align: center;
+    color: #4B0082;
+    margin-bottom: 1.5rem;
+}
+
+.mint-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mint-button {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background: #f3f4f6;
+    color: #4B0082;
+    border: 2px solid #4B0082;
+    transition: all 0.2s ease;
+}
+
+.mint-button.highlight {
+    background: #4B0082;
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .mint-popup {
+        margin: 0 1rem;
+    }
+}

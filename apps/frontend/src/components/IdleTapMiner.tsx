@@ -6,7 +6,8 @@ import Score from "./Score"
 import CoinEffect from "./CoinEffect"
 import SoundManager from "../utils/sound"
 import "../styles/IdleTapMiner.css"
-import { mintAA, mintToken } from "../mint"
+import { mintAA, mintToken, support } from "../mint"
+import MintPopup from "./MintPopup.tsx"
 
 
 interface IdleTapMinerProps {
@@ -21,6 +22,7 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
     const [isCreatingMemory, setIsCreatingMemory] = useState(false)
     const [createdProcessId, setCreatedProcessId] = useState<string | null>(null)
     const [mintError, setMintError] = useState<string | null>(null)
+    const [showMintPopup, setShowMintPopup] = useState(false)
 
     const [coinEffects, setCoinEffects] = useState<{ x: number; y: number }[]>([])
     const soundManager = SoundManager.getInstance()
@@ -54,6 +56,11 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
         }
     }
 
+    const handleMintClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setShowMintPopup(true);
+    };
+
     const handleMint = async (e: React.MouseEvent) => {
         e.stopPropagation();
         setIsCreatingMemory(true);
@@ -78,6 +85,11 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
             setMintError('Wallet address not found');
             setIsCreatingMemory(false);
         }
+    };
+
+    const handleMintAndSupport = async (e: React.MouseEvent) => {
+        handleMint(e);
+        await support();
     };
 
     const handleViewMemory = () => {
@@ -159,7 +171,7 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
                                         animate={{ opacity: 1, scale: 1 }}
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
-                                        onClick={handleMint}
+                                        onClick={handleMintClick}
                                         disabled={isCreatingMemory}
                                     >
                                         {isCreatingMemory ? "Minting Memory..." : "Mint Memory!"}
@@ -218,6 +230,19 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
             {coinEffects.map((effect, index) => (
                 <CoinEffect key={index} x={effect.x} y={effect.y} />
             ))}
+            {showMintPopup && (
+                <MintPopup
+                    onClose={() => setShowMintPopup(false)}
+                    onMintFreely={(e) => {
+                        setShowMintPopup(false);
+                        handleMint(e);
+                    }}
+                    onMintSupport={(e) => {
+                        setShowMintPopup(false);
+                        handleMintAndSupport(e);
+                    }}
+                />
+            )}
         </div>
     )
 }

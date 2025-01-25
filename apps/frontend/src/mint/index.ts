@@ -1,5 +1,5 @@
 import { createDataItemSigner, message, spawn, result } from "@permaweb/aoconnect";
-import { GATEWAYS, PAGINATORS, CURSORS, assetTags, aaStandard } from "../utils";
+import { GATEWAYS, PAGINATORS, CURSORS, assetTags, aaStandard, SUPPORT_TOKENS } from "../utils";
 import { QueryArgs, GQLResponse, Status, ProfileHeaderType, MessageResult } from "../types";
 import { getProfileByWalletAddress } from "./getProfile";
 import indexHtml from '../utils/index.html?raw'
@@ -266,11 +266,33 @@ export async function mintToken() {
 
     const processId = COUNTER;
 
-    const increaseMessage = await message({
+    const tapMessage = await message({
         process: processId,
         signer: signer,
         tags: [{ name: 'Action', value: 'Increase' }],
     });
 
-    console.log("Increase Message:", increaseMessage);
+    console.log("Tap Message:", tapMessage);
+}
+
+export async function support() {
+    const signer = createDataItemSigner(globalThis.arweaveWallet);
+    const wAR = SUPPORT_TOKENS.wAR;
+
+    const supportMessage = await message({
+        process: wAR,
+        signer: signer,
+        tags: [
+            { name: 'Action', value: 'Transfer' },
+            { name: 'Recipient', value: "FDUH0kZ9McNtpAx3gXTQcMR4dMUTJ1fZU_10JM1Yw4M" },
+            { name: 'Quantity', value: "100000000000" }
+        ],
+        data: "Thanks for supporting!",
+    });
+
+    const supportResult = await result({
+        message: supportMessage,
+        process: wAR,
+    });
+    console.log("Support Result:", supportResult);
 }

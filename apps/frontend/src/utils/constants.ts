@@ -19,6 +19,10 @@ export const AO = {
     profileRegistry: 'SNy4m-DrqxWl01YqGM4sxI8qCni-58re8uuJLvZPypY',
 };
 
+export const SUPPORT_TOKENS = {
+    wAR: 'xU9zFkq3X2ZQ6olwNVvr1vUWIjc3kXTWr7xKQD6dh10'
+}
+
 export const TAGS = {
     keys: {
         ans110: {
