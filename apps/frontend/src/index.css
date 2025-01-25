@@ -11,12 +11,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
   min-width: 100vw;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden; /* Disable scrolling */
 }
 
 #root {

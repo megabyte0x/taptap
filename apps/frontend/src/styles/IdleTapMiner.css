@@ -1,5 +1,5 @@
 .app {
-    min-height: 100vh;
+    height: 100vh;
     background: linear-gradient(to bottom, #4a1d96, #4338ca);
     color: white;
     display: flex;
@@ -18,18 +18,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 60vh;
+    justify-content: flex-start;
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem;
     position: relative;
     text-align: center;
   }
   
   .title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
     color: #FF6B4A;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -38,13 +37,13 @@
   
   @media (min-width: 768px) {
     .title {
-      font-size: 3rem;
+      font-size: 2.5rem;
     }
   }
   
   @media (min-width: 1024px) {
     .title {
-      font-size: 3.75rem;
+      font-size: 3rem;
     }
   }
   
@@ -85,9 +84,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
   
   .instruction {
