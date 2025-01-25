@@ -4,7 +4,10 @@ local process = require "lib.counter"
 Version       = "0.0.1"
 
 --- @type number
-Counter       = Counter or 0
+Taps          = Taps or 0
+
+--- @type string
+TOKEN_PROCESS = TOKEN_PROCESS or "UyT-6VeNCvECBIFX_MGJrahCzK4T3g5Qr8-yfh9Z9ak"
 
 --- Handler to get Info
 --- @param msg Message
@@ -13,24 +16,21 @@ local function infoHandler(msg)
     ao.send({
         Target = msg.From,
         Version = Version,
-        Counter = tostring(Counter)
+        TokenProcess = TOKEN_PROCESS,
+        TotalTaps = tostring(Taps)
     })
 end
 
 -- Handler to get Info
-Handlers.add("info",
-    Handlers.utils.hasMatchingTag("Action", "Info"),
+Handlers.add("Info",
     infoHandler
 )
 
 -- Handler to increase Counter
-Handlers.add("increase",
-    Handlers.utils.hasMatchingTag("Action", "IncreaseCounter"),
+Handlers.add("Increase",
     process.increaseCounter
 )
 
--- Handler to reset Counter
-Handlers.add("reset",
-    Handlers.utils.hasMatchingTag("Action", "ResetCounter"),
-    process.resetCounter
+Handlers.add("Set-Token-Process",
+    process.setTokenProcess
 )

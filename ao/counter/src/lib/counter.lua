@@ -1,31 +1,30 @@
-local mod           = {}
+local mod = {}
 
 --- Handler to increase Counter
 --- @param msg Message
 --- @return nil
 mod.increaseCounter = function(msg)
-    Counter = Counter + 1
+    Taps = Taps + 1
 
     ao.send({
-        Target = msg.From,
-        Action = "Increase",
-        Counter = tostring(Counter),
-        Data = tostring(Counter)
+        Target = TOKEN_PROCESS,
+        Action = "Mint",
+        Recipient = msg.From
     })
 end
 
---- Handler to reset Counter
+--- Handler to set the Token Process
 --- @param msg Message
 --- @return nil
-mod.resetCounter    = function(msg)
-    Counter = 0
-
-    ao.send({
-        Target = msg.From,
-        Action = "Reset",
-        Counter = tostring(Counter),
-        Data = tostring(Counter)
-    })
+mod.setTokenProcess = function(msg)
+    if (msg.From == env.Process.Id or msg.From == Owner) then
+        TOKEN_PROCESS = msg.Tags.TokenProcess
+    else
+        ao.send({
+            Target = msg.From,
+            Tags = { Action = 'Set-Token-Process-Error', Error = 'Only the Process Owner can set the Token Process!' }
+        })
+    end
 end
 
 return mod
