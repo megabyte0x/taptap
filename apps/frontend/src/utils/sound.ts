@@ -4,9 +4,8 @@ class SoundManager {
     private isMuted: boolean = false;
 
     private constructor() {
-        // Use relative path for static exports
-        const basePath = import.meta.env.BASE_URL || './';
-        this.coinSound = new Audio(`${basePath}coin-sound.mp3`);
+        // Always use absolute path from public directory
+        this.coinSound = new Audio('./coin-sound.mp3');
         this.coinSound.volume = 0.3; // Adjust volume (0.0 to 1.0)
     }
 
@@ -21,7 +20,8 @@ class SoundManager {
         if (!this.isMuted) {
             // Clone the audio to allow multiple simultaneous plays
             const sound = this.coinSound.cloneNode() as HTMLAudioElement;
-            sound.play().catch(() => {
+            sound.play().catch((error) => {
+                console.warn('Audio playback failed:', error);
                 // Ignore errors (some browsers block autoplay)
             });
         }
