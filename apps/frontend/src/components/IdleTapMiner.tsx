@@ -107,7 +107,7 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
 
     return (
         <div className="game-container" onClick={incrementScore}>
-            <h1 className="title">$TAP Coin Miner</h1>
+            <h1 className="title">$TAP $Tap Miner</h1>
             {!isPlaying && timeLeft === 10 && (
                 <div className="start-section">
                     {!walletAddress ? (
@@ -137,7 +137,7 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
                 <div className="game-info">
                     <Timer timeLeft={timeLeft} />
                     <Score score={score} />
-                    <div className="instruction">Tap anywhere to mine $TAP coins!</div>
+                    <div className="instruction">Tap anywhere to mine $TAP!</div>
                 </div>
             )}
             {timeLeft === 0 && (
