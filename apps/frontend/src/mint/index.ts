@@ -140,14 +140,6 @@ export async function mint(walletAddress: string, score: number): Promise<Status
         status.message = "Error while getting profile";
         status.success = false;
         return status;
-        // if (error instanceof Error) {
-        //     console.error("Error in aaSteps: ", error.message);
-        //     status.message = `Error: ${error.message}`;
-        // } else {
-        //     console.error("Unknown error in aaSteps");
-        //     status.message = "Unknown error occurred";
-        // }
-        // return status;
     }
 
     if (profile && profile.id && profile.id !== "") {
@@ -261,9 +253,9 @@ export async function mint(walletAddress: string, score: number): Promise<Status
         return status;
 
     } else {
-        console.log("Profile not found");
+        console.log("Bazaar profile not found");
         status.success = false;
-        status.message = 'Profile not found';
+        status.message = 'Bazaar profile not found';
         return status;
     }
 }

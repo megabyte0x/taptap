@@ -85,6 +85,13 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
         }
     };
 
+    const handleRestart = () => {
+        setIsPlaying(false)
+        setScore(0)
+        setTimeLeft(10)
+        setCreatedProcessId(null)
+    }
+
     return (
         <div className="game-container" onClick={incrementScore}>
             <h1 className="title">$TAP Coin Miner</h1>
@@ -132,44 +139,69 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
                     <div className="button-container">
 
                         <motion.button
-                            className="start-button"
+                            className="start-button play-again-button"
+                            onClick={handleRestart}
                             initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                setIsPlaying(false)
-                                setScore(0)
-                                setTimeLeft(10)
-                                setCreatedProcessId(null)
-                            }}
                         >
                             Play Again
                         </motion.button>
 
                         {!createdProcessId ? (
                             <div className="mint-button-container">
-                                <motion.button
-                                    className="start-button"
-                                    initial={{ opacity: 0, scale: 0.5 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    onClick={handleMint}
-                                    disabled={isCreatingMemory}
-                                >
-                                    {isCreatingMemory ? "Minting Memory..." : "Mint Memory!"}
-                                </motion.button>
-                                {mintError && (
-                                    <div className="mint-error">
-                                        {mintError}
-                                    </div>
+                                {!mintError ? (
+                                    <motion.button
+                                        className="start-button action-button"
+                                        initial={{ opacity: 0, scale: 0.5 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        onClick={handleMint}
+                                        disabled={isCreatingMemory}
+                                    >
+                                        {isCreatingMemory ? "Minting Memory..." : "Mint Memory!"}
+                                    </motion.button>
+                                ) : (
+                                    <motion.div
+                                        className="mint-error-container"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        <div className="mint-error">
+                                            <svg
+                                                className="error-icon"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                                                <path d="M12 7v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                                <circle cx="12" cy="16" r="1" fill="currentColor" />
+                                            </svg>
+                                            {mintError}
+                                        </div>
+                                        <motion.button
+                                            className="start-button action-button"
+                                            initial={{ opacity: 0, scale: 0.5 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            whileHover={{ scale: 1.1 }}
+                                            whileTap={{ scale: 0.9 }}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setMintError(null);
+                                            }}
+                                        >
+                                            Try Again
+                                        </motion.button>
+                                    </motion.div>
                                 )}
                             </div>
                         ) : (
                             <motion.button
-                                className="start-button view-memory"
+                                className="start-button action-button"
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 whileHover={{ scale: 1.1 }}
