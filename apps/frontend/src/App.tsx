@@ -2,7 +2,7 @@ import { ConnectButton } from "arweave-wallet-kit";
 import { useActiveAddress } from "arweave-wallet-kit";
 import "./App.css";
 import IdleTapMiner from "./components/IdleTapMiner.tsx";
-import { useState, Suspense, lazy, useEffect } from "react";
+import { useState, Suspense, lazy } from "react";
 
 const Confetti = lazy(() => import("./components/Confetti"))
 

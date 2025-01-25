@@ -4,6 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { Analytics } from "@vercel/analytics/react"
 
 // Create a React Query client
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 		>
 			<QueryClientProvider client={queryClient}>
 				<App />
+				<Analytics />
 			</QueryClientProvider>
 		</ArweaveWalletKit>
 	</React.StrictMode>,
