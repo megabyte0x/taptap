@@ -10,6 +10,6 @@
     - name: Authority
       value: fcoN_xJeisVsPXA-trzVAuIiqO3ydLQxM-L4XbrQKzY
     - name: Name
-      value: counter
-    - name: Powered-By
-      value: create-ao-dapp
+      value: Tap
+    - name: Developer
+      value: megabyte.ar.io

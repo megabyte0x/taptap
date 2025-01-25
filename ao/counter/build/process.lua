@@ -43,7 +43,7 @@ Version       = "0.0.1"
 Taps          = Taps or 0
 
 --- @type string
-TOKEN_PROCESS = TOKEN_PROCESS or "UyT-6VeNCvECBIFX_MGJrahCzK4T3g5Qr8-yfh9Z9ak"
+TOKEN_PROCESS = TOKEN_PROCESS or "mCv0FbsLWlgNbn3B7VXTvM6_0gTn93k3yy7h63Uq4EQ"
 
 --- Handler to get Info
 --- @param msg Message

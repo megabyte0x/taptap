@@ -37,7 +37,7 @@ if Denomination ~= 18 then Denomination = 18 end
 
 if not Logo then Logo = 'kPZd6glwsQIjT1x0hBIQIZPDM3YSeoZmafr9NRfo5O4' end
 
-COUNTER_PROCESS = "k5kpwc4j_G36nhvx5GyI9l9yzHhYRyF8oIZ0m3qB4vg"
+COUNTER_PROCESS = "t-MtF_61mTUNT4lPBCJDB5wAV9umx_NvsJ0TbPY2tCI"
 
 --[[
   Add Handlers for each incoming Action defined by the ao Standard Token Specification
