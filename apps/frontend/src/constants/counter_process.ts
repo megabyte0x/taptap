@@ -1,4 +1,4 @@
 
 // This file was auto-generated using inject-process.ts
-const COUNTER = "t-MtF_61mTUNT4lPBCJDB5wAV9umx_NvsJ0TbPY2tCI";
+const COUNTER = "UyT-6VeNCvECBIFX_MGJrahCzK4T3g5Qr8-yfh9Z9ak";
 export default COUNTER;

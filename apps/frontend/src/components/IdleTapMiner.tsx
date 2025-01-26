@@ -8,6 +8,7 @@ import SoundManager from "../utils/sound"
 import "../styles/IdleTapMiner.css"
 import { mintAA, mintToken, support } from "../mint"
 import MintPopup from "./MintPopup.tsx"
+import toast from 'react-hot-toast'
 
 
 interface IdleTapMinerProps {
@@ -41,20 +42,37 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
         return () => clearInterval(timer)
     }, [isPlaying, timeLeft, onGameEnd])
 
-    const incrementScore = (e: React.MouseEvent<HTMLDivElement>) => {
+    const incrementScore = async (e: React.MouseEvent<HTMLDivElement>) => {
         if (isPlaying) {
-            setScore((prev) => prev + 1)
-            const rect = e.currentTarget.getBoundingClientRect()
-            const x = e.clientX - rect.left
-            const y = e.clientY - rect.top
-            setCoinEffects((prev) => [...prev, { x, y }])
-            mintToken()
-            soundManager.playTapSound()
+            setScore((prev) => prev + 1);
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            setCoinEffects((prev) => [...prev, { x, y }]);
+            const tapMessage = await mintToken();
+            toast(
+                <a
+                    href={`https://www.ao.link/#/message/${tapMessage}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Tap Message:
+                    <br />
+                    <span className="message-id">{tapMessage}</span>
+                </a>,
+                {
+                    position: 'bottom-right',
+                    duration: 2000,
+                    id: 'tap-toast',
+                    className: 'tap-toast stacked-toast'
+                }
+            );
+            soundManager.playTapSound();
             setTimeout(() => {
-                setCoinEffects((prev) => prev.slice(1))
-            }, 1000)
+                setCoinEffects((prev) => prev.slice(1));
+            }, 1000);
         }
-    }
+    };
 
     const handleMintClick = (e: React.MouseEvent) => {
         e.stopPropagation();

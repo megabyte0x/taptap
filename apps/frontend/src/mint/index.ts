@@ -261,7 +261,7 @@ export async function mintAA(walletAddress: string, score: number): Promise<Stat
     }
 }
 
-export async function mintToken() {
+export async function mintToken(): Promise<string> {
     const signer = createDataItemSigner(globalThis.arweaveWallet);
 
     const processId = COUNTER;
@@ -273,6 +273,7 @@ export async function mintToken() {
     });
 
     console.log("Tap Message:", tapMessage);
+    return tapMessage.toString();
 }
 
 export async function support() {

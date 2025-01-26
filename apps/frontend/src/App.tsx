@@ -3,6 +3,7 @@ import { useActiveAddress } from "arweave-wallet-kit";
 import "./App.css";
 import IdleTapMiner from "./components/IdleTapMiner.tsx";
 import { useState, Suspense, lazy } from "react";
+import { Toaster } from 'react-hot-toast';
 
 const Confetti = lazy(() => import("./components/Confetti"))
 
@@ -18,6 +19,15 @@ function App() {
 
   return (
     <div className="container">
+      <Toaster
+        position="bottom-right"
+        reverseOrder={true}
+        gutter={-6}
+        containerClassName="toast-container"
+        toastOptions={{
+          className: 'toast'
+        }}
+      />
       {showDisclaimer && (
         <div className="modal-overlay">
           <div className="modal-content">
