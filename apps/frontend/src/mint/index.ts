@@ -3,7 +3,9 @@ import { GATEWAYS, PAGINATORS, CURSORS, assetTags, aaStandard, SUPPORT_TOKENS } 
 import { QueryArgs, GQLResponse, Status, ProfileHeaderType, MessageResult } from "../types";
 import { getProfileByWalletAddress } from "./getProfile";
 import indexHtml from '../utils/index.html?raw'
-import COUNTER from "../constants/counter_process";
+import { COUNTER } from "../utils/constants";
+
+const counter = process.env.NODE_ENV === 'production' ? COUNTER.production : COUNTER.dev;
 
 function getQuery(args: QueryArgs) {
     const paginator = args.paginator ? args.paginator : PAGINATORS.default;
@@ -264,7 +266,7 @@ export async function mintAA(walletAddress: string, score: number): Promise<Stat
 export async function mintToken(): Promise<string> {
     const signer = createDataItemSigner(globalThis.arweaveWallet);
 
-    const processId = COUNTER;
+    const processId = counter;
 
     const tapMessage = await message({
         process: processId,

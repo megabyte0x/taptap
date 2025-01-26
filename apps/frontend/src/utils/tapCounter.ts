@@ -1,12 +1,15 @@
 import { dryrun } from "@permaweb/aoconnect";
 
-import COUNTER from "../constants/counter_process";
+import { COUNTER } from "../utils/constants";
 import { TagType } from "../types";
+
+const counter = process.env.NODE_ENV === 'production' ? COUNTER.production : COUNTER.dev;
+
 export async function totalTaps(): Promise<string> {
     const tags = [{ name: 'Action', value: 'Info' }];
 
     const response = await dryrun({
-        process: COUNTER,
+        process: counter,
         tags: tags,
     });
 

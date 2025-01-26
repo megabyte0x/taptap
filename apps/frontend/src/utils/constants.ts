@@ -8,6 +8,11 @@ export const PAGINATORS = {
     assetTable: 10,
 };
 
+export const COUNTER = {
+    production: 't-MtF_61mTUNT4lPBCJDB5wAV9umx_NvsJ0TbPY2tCI',
+    dev: 'k5kpwc4j_G36nhvx5GyI9l9yzHhYRyF8oIZ0m3qB4vg',
+}
+
 export const CURSORS = {
     p1: 'P1',
     end: 'END',
