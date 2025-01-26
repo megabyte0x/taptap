@@ -40,3 +40,23 @@ button:focus-visible {
   outline: 2px solid #4B0082;
   outline-offset: 2px;
 }
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* Ensures text is displayed using fallback until the font loads */
+  font-preload: true; /* Custom property to indicate preloading */
+}
+
+/* Preload Inter font */
+/* <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin> */
+
+/* Ensure toast containers are positioned to avoid layout shifts */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000; /* Ensures it appears above other content */
+}

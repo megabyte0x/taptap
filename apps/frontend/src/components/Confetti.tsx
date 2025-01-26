@@ -25,8 +25,17 @@ const Confetti = () => {
       height={windowDimension.height}
       numberOfPieces={200}
       recycle={false}
-      colors={['#FFD700', '#FF6B4A', '#4B0082', '#800080']} // Gold, Coral, Deep Purple, Purple
+      colors={['#FFD700', '#FF6B4A', '#4B0082', '#800080']} /* Gold, Coral, Deep Purple, Purple */
       gravity={0.3}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 1000, /* Ensures confetti is above other content */
+      }}
     />
   );
 };

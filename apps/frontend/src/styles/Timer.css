@@ -3,6 +3,7 @@
   font-weight: bold;
   margin-bottom: 1rem;
   color: #4B0082; /* Deep purple text */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transitions to prevent layout shifts */
 }
 
 @media (min-width: 768px) {

@@ -5,4 +5,4 @@ apps/*/dist
 *.mp4
 MAIN_DEV.json
 ao/**/build
-
+*.gif
