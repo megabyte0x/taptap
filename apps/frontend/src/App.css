@@ -131,8 +131,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -141,21 +141,56 @@
 }
 
 .modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 500px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
   text-align: center;
 }
 
+.modal-content h2 {
+  margin-bottom: 20px;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+}
+
+.modal-content.vouch-popup p {
+  margin-bottom: 15px;
+}
+
 .modal-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
   padding: 10px 20px;
-  border-radius: 4px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  margin-top: 15px;
+  font-size: 16px;
+  min-width: 120px;
+}
+
+.modal-button:hover:enabled {
+  opacity: 0.9;
+}
+
+.modal-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-button.highlighted {
+  background-color: #4caf50; /* Green background for the highlighted button */
+  color: white;
+}
+
+.modal-button:not(.highlighted) {
+  background-color: #f0f0f0; /* Light grey for the other button */
+  color: #333;
+}
+
+.modal-button.highlighted:hover:enabled {
+  background-color: #45a049;
 }
 
 .disclaimer {
@@ -276,4 +311,28 @@
   .footer {
     font-size: 0.875rem; /* Reduce font size */
   }
+}
+
+/* Styles for the vouch popup */
+.vouch-popup {
+  /* Optional: Add specific styles for vouch popup */
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Button group styling */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Hidden wallet button */
+.wallet-button.hidden {
+  display: none;
 }
