@@ -3,7 +3,7 @@
   font-weight: bold;
   display: flex;
   align-items: center;
-  color: #4B0082; /* Deep purple text */
+  color: #4b0082; /* Deep purple text */
 }
 
 @media (min-width: 768px) {
@@ -26,6 +26,19 @@
   }
 }
 
+/* Add responsive adjustments */
+@media (max-width: 390px), (max-height: 700px) {
+  .score {
+    font-size: 1.25rem;
+  }
+
+  .score-icon {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -34,4 +47,3 @@
     transform: rotate(360deg);
   }
 }
-

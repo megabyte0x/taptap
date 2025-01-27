@@ -79,7 +79,7 @@
   justify-content: flex-start;
   height: 100vh;
   width: 100%;
-  background: linear-gradient(to bottom, #4B0082, #800080);
+  background: linear-gradient(to bottom, #4b0082, #800080);
   padding: 1rem;
   box-sizing: border-box;
   overflow: hidden;
@@ -176,7 +176,7 @@
   padding: 0.5rem;
   background-color: rgba(248, 249, 250, 0.7);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .footer-link {
@@ -192,7 +192,7 @@
 }
 
 .toast {
-  background: #4B0082 !important;
+  background: #4b0082 !important;
   color: #fff !important;
   font-weight: 500 !important;
   padding: 12px !important;
@@ -214,7 +214,7 @@
 /* Show toast only on laptop screens and above */
 @media screen and (min-width: 1025px) {
   .tap-toast {
-    background: #4B0082 !important;
+    background: #4b0082 !important;
     color: #fff !important;
     font-weight: 500 !important;
     padding: 12px !important;
@@ -232,7 +232,7 @@
   }
 
   .tap-toast .message-id {
-    color: #FFD700 !important;
+    color: #ffd700 !important;
   }
 }
 
@@ -257,3 +257,23 @@
   }
 }
 
+@media (max-width: 390px), (max-height: 700px) {
+  .container {
+    padding: 1rem; /* Reduce padding */
+  }
+
+  .card {
+    width: 95%; /* Reduce width */
+    padding: 1rem; /* Reduce padding */
+    max-height: calc(100vh - 100px); /* Adjust max-height */
+  }
+
+  .wallet-button {
+    margin-bottom: 1rem; /* Adjust margin */
+  }
+
+  /* Adjust footer if necessary */
+  .footer {
+    font-size: 0.875rem; /* Reduce font size */
+  }
+}

@@ -8,3 +8,14 @@
   z-index: 1000; /* Ensures the coin effects are above other content */
   /* Ensure no space is reserved in the document flow */
 }
+
+@media (max-width: 390px), (max-height: 700px) {
+  .coin-effect {
+    /* Adjust size if necessary */
+  }
+
+  .coin-effect svg {
+    width: 30px; /* Reduce SVG size */
+    height: 30px; /* Reduce SVG size */
+  }
+}

@@ -2,7 +2,7 @@
   font-size: 1.875rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #4B0082; /* Deep purple text */
+  color: #4b0082; /* Deep purple text */
   transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transitions to prevent layout shifts */
 }
 
@@ -12,3 +12,9 @@
   }
 }
 
+/* Add responsive adjustments */
+@media (max-width: 390px), (max-height: 700px) {
+  .timer {
+    font-size: 1.25rem;
+  }
+}
