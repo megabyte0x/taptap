@@ -119,8 +119,6 @@ async function runGQLQuery(processId: string): Promise<GQLResponse> {
             reduxCursor: null,
             cursorObjectKey: null,
         });
-
-        // console.log('GraphQL Query Response:', JSON.stringify(gqlResponse, null, 2));
         return gqlResponse;
 
     } catch (error) {
@@ -130,7 +128,6 @@ async function runGQLQuery(processId: string): Promise<GQLResponse> {
 }
 
 export async function mintAA(walletAddress: string, score: number): Promise<Status> {
-    console.log("Start");
     const signer = createDataItemSigner(globalThis.arweaveWallet);
     const status: Status = { success: false, processId: null, message: '' };
 
@@ -138,7 +135,6 @@ export async function mintAA(walletAddress: string, score: number): Promise<Stat
     try {
         // Step 1: Get Profile
         profile = await getProfileByWalletAddress({ address: walletAddress });
-        console.log("Profile:", profile);
     } catch (error: unknown) {
         status.message = "Error while getting profile";
         status.success = false;

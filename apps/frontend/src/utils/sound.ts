@@ -1,12 +1,13 @@
 class SoundManager {
     private static instance: SoundManager;
-    private coinSound: HTMLAudioElement;
+    private audioContext: AudioContext;
+    private tapBuffer: AudioBuffer | null = null;
     private isMuted: boolean = false;
+    private isInitialized: boolean = false;
 
     private constructor() {
-        // Always use absolute path from public directory
-        this.coinSound = new Audio('./coin-sound.mp3');
-        this.coinSound.volume = 0.3; // Adjust volume (0.0 to 1.0)
+        // Initialize the AudioContext
+        this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
 
     public static getInstance(): SoundManager {
@@ -16,15 +17,57 @@ class SoundManager {
         return SoundManager.instance;
     }
 
-    public playTapSound() {
-        if (!this.isMuted) {
-            // Clone the audio to allow multiple simultaneous plays
-            const sound = this.coinSound.cloneNode() as HTMLAudioElement;
-            sound.play().catch((error) => {
-                console.warn('Audio playback failed:', error);
-                // Ignore errors (some browsers block autoplay)
-            });
+    /**
+     * Initializes the SoundManager by loading and decoding the tap sound.
+     * This should be called in response to a user interaction to ensure the AudioContext is unlocked.
+     * @param url The URL of the tap sound file.
+     */
+    public async initialize() {
+        if (this.isInitialized) return;
+        await this.loadTapSound('./coin-sound.webm');
+        this.isInitialized = true;
+    }
+
+    /**
+     * Loads and decodes the tap sound into an AudioBuffer.
+     * @param url The URL of the tap sound file.
+     */
+    private async loadTapSound(url: string) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const arrayBuffer = await response.arrayBuffer();
+            this.tapBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+            this.isInitialized = true;
+        } catch (error) {
+            console.error('Failed to load tap sound:', error);
         }
+    }
+
+    /**
+     * Plays the tap sound immediately.
+     * Ensures the AudioContext is resumed if it was suspended.
+     */
+    public async playTapSound() {
+        if (this.isMuted || !this.tapBuffer) {
+            return;
+        }
+
+        // Resume the AudioContext if it's suspended (required in some browsers)
+        if (this.audioContext.state === 'suspended') {
+            try {
+                await this.audioContext.resume();
+            } catch (error) {
+                console.error('Failed to resume AudioContext:', error);
+            }
+        }
+
+        const source = this.audioContext.createBufferSource();
+        source.buffer = this.tapBuffer;
+        source.connect(this.audioContext.destination);
+        source.start(0);
     }
 
     public toggleMute() {

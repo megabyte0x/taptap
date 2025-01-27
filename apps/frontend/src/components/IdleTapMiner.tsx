@@ -27,6 +27,7 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
 
     const [coinEffects, setCoinEffects] = useState<{ x: number; y: number }[]>([])
     const soundManager = SoundManager.getInstance()
+    const [isSoundReady, setIsSoundReady] = useState(false)
     const walletAddress = useActiveAddress()
 
     useEffect(() => {
@@ -41,6 +42,21 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
         }
         return () => clearInterval(timer)
     }, [isPlaying, timeLeft, onGameEnd])
+
+    useEffect(() => {
+        const handleFirstInteraction = async () => {
+            await soundManager.initialize();
+            setIsSoundReady(true);
+        };
+
+        window.addEventListener('click', handleFirstInteraction, { once: true });
+        window.addEventListener('touchstart', handleFirstInteraction, { once: true });
+
+        return () => {
+            window.removeEventListener('click', handleFirstInteraction);
+            window.removeEventListener('touchstart', handleFirstInteraction);
+        };
+    }, [soundManager]);
 
     const incrementScore = async (e: React.MouseEvent<HTMLDivElement>) => {
         if (isPlaying) {
@@ -67,7 +83,9 @@ export default function IdleTapMiner({ onGameEnd, ConnectButtonComponent }: Idle
                     className: 'tap-toast stacked-toast'
                 }
             );
-            soundManager.playTapSound();
+            if (isSoundReady) {
+                soundManager.playTapSound();
+            }
             setTimeout(() => {
                 setCoinEffects((prev) => prev.slice(1));
             }, 1000);

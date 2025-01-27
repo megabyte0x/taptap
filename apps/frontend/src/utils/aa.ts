@@ -1,7 +1,6 @@
 import { TAGS } from "./constants";
 
 export function aaStandard(walletAddress: string) {
-    console.log("Wallet Address in aaStandard: ", walletAddress)
 
     const aa = `local bint = require('.bint')(256)
 local json = require('json')
