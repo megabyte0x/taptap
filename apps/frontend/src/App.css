@@ -336,3 +336,13 @@
 .wallet-button.hidden {
   display: none;
 }
+
+.error-container {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff0000;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 1.2rem;
+}

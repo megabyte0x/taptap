@@ -7,11 +7,16 @@ const counter = process.env.NODE_ENV === 'production' ? COUNTER.production : COU
 
 export async function totalTaps(): Promise<string> {
     const tags = [{ name: 'Action', value: 'Info' }];
-
-    const response = await dryrun({
-        process: counter,
-        tags: tags,
-    });
+    let response;
+    try {
+        response = await dryrun({
+            process: counter,
+            tags: tags,
+        });
+    } catch (error) {
+        console.error("Error fetching taps:", error);
+        return "Error";
+    }
 
     if (response.Messages && response.Messages.length && response.Messages[0].Tags) {
         const Tags: TagType[] = response.Messages[0].Tags;
