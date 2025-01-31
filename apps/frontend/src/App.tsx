@@ -157,9 +157,6 @@ function App() {
         <div className={`wallet-button ${!walletAddress ? 'hidden' : ''}`}>
           <ConnectButton profileModal={false} showBalance={false} />
         </div>
-        <div className="error-container">
-          Due to huge number of $TAPs, the process is congested right now. It will be back automatically after there's no more congestion.
-        </div>
         {tapCount === "Error" ? (
           <div className="error-container">
             Due to huge number of $TAPs, the process is congested right now. It will be back automatically after there's no more congestion.
