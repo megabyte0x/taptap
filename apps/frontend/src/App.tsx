@@ -37,30 +37,30 @@ function App() {
     fetchTaps();
   }, []);
 
-  // useEffect(() => {
-  //   const verifyVouchStatus = async () => {
-  //     if (walletAddress) {
-  //       setIsCheckingVouch(true);
-  //       setError(null);
-  //       try {
-  //         const status = await checkVouch(walletAddress);
-  //         setVouched(status);
-  //         console.log("Vouched:", status);
-  //       } catch (err) {
-  //         console.error("Error checking vouch status:", err);
-  //         setError("Failed to check vouch status. Please try again.");
-  //         setVouched(false); // Depending on desired fallback
-  //       } finally {
-  //         setIsCheckingVouch(false);
-  //       }
-  //     } else {
-  //       setVouched(null); // Represents no wallet connected
-  //       setShowVouchPopup(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const verifyVouchStatus = async () => {
+      if (walletAddress) {
+        setIsCheckingVouch(true);
+        setError(null);
+        try {
+          const status = await checkVouch(walletAddress);
+          setVouched(status);
+          console.log("Vouched:", status);
+        } catch (err) {
+          console.error("Error checking vouch status:", err);
+          setError("Failed to check vouch status. Please try again.");
+          setVouched(false); // Depending on desired fallback
+        } finally {
+          setIsCheckingVouch(false);
+        }
+      } else {
+        setVouched(null); // Represents no wallet connected
+        setShowVouchPopup(false);
+      }
+    };
 
-  //   verifyVouchStatus();
-  // }, [walletAddress]);
+    verifyVouchStatus();
+  }, [walletAddress]);
 
   useEffect(() => {
     if (vouched === false && walletAddress) {
@@ -117,7 +117,7 @@ function App() {
           </div>
         </div>
       )}
-      {false && (
+      {showVouchPopup && (
         <div className="modal-overlay">
           <div className="modal-content vouch-popup">
             <h2>Vouch Status</h2>
@@ -160,7 +160,7 @@ function App() {
         <div className="error-container">
           Due to huge number of $TAPs, the process is congested right now. It will be back automatically after there's no more congestion.
         </div>
-        {/* {tapCount === "Error" ? (
+        {tapCount === "Error" ? (
           <div className="error-container">
             Due to huge number of $TAPs, the process is congested right now. It will be back automatically after there's no more congestion.
           </div>
@@ -171,7 +171,7 @@ function App() {
               !walletAddress ? <ConnectButton profileModal={false} showBalance={false} /> : null
             }
           />
-        )} */}
+        )}
       </div>
       <footer className="footer">
         Proof of Build! by <a

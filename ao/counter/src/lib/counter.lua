@@ -1,9 +1,41 @@
 local mod = {}
 
+-- Initialize dailyTaps table if it doesn't exist
+dailyTaps = dailyTaps or { address = {} }
+
 --- Handler to increase Counter
 --- @param msg Message
 --- @return nil
 mod.increaseCounter = function(msg)
+    local currentTimestamp = os.time()
+
+    -- Initialize user record if it doesn't exist
+    if not dailyTaps.address[msg.From] then
+        dailyTaps.address[msg.From] = {
+            lastTimestamp = currentTimestamp,
+            taps = 0
+        }
+    end
+
+    local dailyTap = dailyTaps.address[msg.From]
+
+    -- Reset counter if 24 hours have passed
+    if (currentTimestamp - dailyTap.lastTimestamp > 86400) then
+        dailyTap.lastTimestamp = currentTimestamp
+        dailyTap.taps = 0
+    end
+
+    -- Check if daily limit reached BEFORE incrementing
+    if (dailyTap.taps >= DAILY_LIMIT) then
+        ao.send({
+            Target = msg.From,
+            Action = "Daily-Limit-Reached"
+        })
+        return -- Exit function without minting
+    end
+
+    -- Increment counters and mint token
+    dailyTap.taps = dailyTap.taps + 1
     Taps = Taps + 1
 
     ao.send({
